@@ -94,7 +94,7 @@ class MainWindowController: NSWindowController {
     localizableFiles.removeAll()
     localizableFiles = try! FileManager.default
       .contentsOfDirectory(at: url, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles, .skipsSubdirectoryDescendants])
-      .filter { $0.lastPathComponent.hasSuffix(".strings") }
+      .filter { $0.lastPathComponent.hasSuffix(".strings") && $0.lastPathComponent != "InfoPlist.strings" }
       .sorted { $0.path.localizedStandardCompare($1.path) == .orderedAscending }
       .map { LocalizableFile(url: $0, basedOn: selectedBaseLangURL) }
     localizableFiles.forEach { $0.update() }
