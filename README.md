@@ -1,4 +1,4 @@
-## IINA Translation Utility
+## IINA Translation Utility [![Build Status](https://travis-ci.org/iina/iina-translation-utility.svg?branch=master)](https://travis-ci.org/iina/iina-translation-utility)
 
 Update `.strings` files with minimal effort.
 
