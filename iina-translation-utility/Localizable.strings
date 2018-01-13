@@ -1,0 +1,11 @@
+/* 
+  Localizable.strings
+  iina-translation-utility
+
+  Created by Yuze Jiang on 1/12/18.
+  Copyright © 2018 Collider LI. All rights reserved.
+*/
+
+"alert.title_error" = "Error";
+"alert.title_info" = "Information";
+"alert.title_warning" = "Warning";

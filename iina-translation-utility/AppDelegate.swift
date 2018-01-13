@@ -37,6 +37,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
   func applicationDidFinishLaunching(_ aNotification: Notification) {
     window = MainWindowController()
+    openDocument(self)
   }
 
   func applicationWillTerminate(_ aNotification: Notification) {

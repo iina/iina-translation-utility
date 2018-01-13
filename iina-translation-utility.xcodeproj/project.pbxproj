@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8403CEAC2009896200645516 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 8403CEAB2009896200645516 /* Localizable.strings */; };
 		84CC48361F9E428F00D130B7 /* XIBLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CC48351F9E428F00D130B7 /* XIBLoader.swift */; };
 		84CC48381F9E5E5A00D130B7 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84CC48371F9E5E5A00D130B7 /* Utils.swift */; };
 		84FF60861F9DBD1A001A3A93 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FF60851F9DBD1A001A3A93 /* AppDelegate.swift */; };
@@ -20,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8403CEAB2009896200645516 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		84CC48351F9E428F00D130B7 /* XIBLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XIBLoader.swift; sourceTree = "<group>"; };
 		84CC48371F9E5E5A00D130B7 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		84FF60821F9DBD1A001A3A93 /* IINA Translation Utility.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "IINA Translation Utility.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -69,6 +71,7 @@
 				84FF60871F9DBD1A001A3A93 /* Assets.xcassets */,
 				84FF60891F9DBD1A001A3A93 /* MainMenu.xib */,
 				84FF608C1F9DBD1A001A3A93 /* Info.plist */,
+				8403CEAB2009896200645516 /* Localizable.strings */,
 				84FF608D1F9DBD1A001A3A93 /* iina_translation_utility.entitlements */,
 				84FF60931F9DBD38001A3A93 /* MainWindowController.swift */,
 				84FF60941F9DBD38001A3A93 /* MainWindowController.xib */,
@@ -146,6 +149,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				84FF60881F9DBD1A001A3A93 /* Assets.xcassets in Resources */,
+				8403CEAC2009896200645516 /* Localizable.strings in Resources */,
 				84FF60961F9DBD38001A3A93 /* MainWindowController.xib in Resources */,
 				84FF608B1F9DBD1A001A3A93 /* MainMenu.xib in Resources */,
 			);
