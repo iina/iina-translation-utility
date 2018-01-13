@@ -349,6 +349,7 @@ extension MainWindowController: NSTableViewDelegate, NSTableViewDataSource {
     guard row >= 0 && row < mainTableView.numberOfRows else { return }
     editingRow = row
     mainTableView.selectRowIndexes(IndexSet(integer: editingRow), byExtendingSelection: false)
+    mainTableView.scrollRowToVisible(editingRow)
     if let rowView = mainTableView.rowView(atRow: editingRow, makeIfNecessary: false) {
       let item = displayedItems[row]
       popoverBaseTextField.stringValue = item.base ?? ""
