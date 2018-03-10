@@ -20,6 +20,14 @@ class XIBLoader: NSObject {
   var currentSegmentedCellId: String?
   var currentSegmentCount = 0
 
+  var parentId: String?
+  var parentElm: String?
+
+  // for checking <element key="key">
+  var tempId: String?
+  var tempElm: String?
+  var tempCharacters: String?
+
   private var isInTableColumn = false
 
   init(_ url: URL) {
@@ -43,6 +51,14 @@ extension XIBLoader: XMLParserDelegate {
   func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
     guard !["popUpButtonCell", "tableViewCell"].contains(elementName) else { return }
 
+    if let key = attributeDict["key"] {
+      if key == "title" {
+        tempId = parentId
+        tempElm = parentElm
+        tempCharacters = ""
+      }
+    }
+
     if let id = attributeDict["id"] {
       if elementName == "tableColumn" {
         currentTableColumnId = id
@@ -59,7 +75,10 @@ extension XIBLoader: XMLParserDelegate {
       if let placeholder = attributeDict["placeholderString"] {
         addTitle(key: "\(id).placeholderString", value: placeholder, class: elementName)
       }
+      parentId = id
+      parentElm = elementName
     }
+
     if elementName == "tableHeaderCell", let columnId = currentTableColumnId, let title = attributeDict["title"] {
       // headerCell
       addTitle(key: "\(columnId).headerCell.title", value: title, class: "tableColumn")
@@ -73,6 +92,12 @@ extension XIBLoader: XMLParserDelegate {
     }
   }
 
+  func parser(_ parser: XMLParser, foundCharacters string: String) {
+    if tempId != nil {
+      tempCharacters!.append(string)
+    }
+  }
+
   func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
     if elementName == "tableColumn" {
       currentTableColumnId = nil
@@ -80,6 +105,12 @@ extension XIBLoader: XMLParserDelegate {
       currentSegmentedCellId = nil
     } else if elementName == "tableCellView" {
       isInTableColumn = false
+    }
+    if tempId != nil {
+      addTitle(key: "\(tempId!).title", value: tempCharacters!, class: tempElm)
+      tempId = nil
+      tempElm = nil
+      tempCharacters = nil
     }
   }
 
