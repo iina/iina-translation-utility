@@ -20,7 +20,10 @@ class LocalizationItem: NSObject {
   }
 
   var escapedLocalization: String? {
-    return localization?.replacingOccurrences(of: "\\", with: "\\\\").replacingOccurrences(of: "\"", with: "\\\"")
+    return localization?
+      .replacingOccurrences(of: "\\", with: "\\\\")
+      .replacingOccurrences(of: "\"", with: "\\\"")
+      .replacingOccurrences(of: "\n", with: "\\n")
   }
 
   @objc var translationForDisplay: String {
