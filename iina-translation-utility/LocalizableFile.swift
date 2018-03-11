@@ -33,7 +33,7 @@ class LocalizableFile: NSObject {
   func removeFallbacks() {
     do {
       let strings = try String.init(contentsOf: url, encoding: .utf8)
-      let lines = strings.split(separator: "\n")
+      let lines = strings.split(separator: "\n", omittingEmptySubsequences: false)
       let FIXME = "FIXME: Using English localization instead"
       var foundFixme = false
       var toWrite = ""
