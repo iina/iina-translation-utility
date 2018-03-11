@@ -27,6 +27,32 @@ class LocalizableFile: NSObject {
     self.url = url
     self.baseLanguageURL = baseLangURL
     super.init()
+    self.removeFallbacks()
+  }
+
+  func removeFallbacks() {
+    do {
+      let strings = try String.init(contentsOf: url, encoding: .utf8)
+      let lines = strings.split(separator: "\n")
+      let FIXME = "FIXME: Using English localization instead"
+      var foundFixme = false
+      var toWrite = ""
+      for currentLine in lines {
+        if (foundFixme) {
+          foundFixme = false
+          continue
+        }
+        if (currentLine.contains(FIXME)) {
+          foundFixme = true
+          continue
+        }
+        toWrite.append(String(currentLine) + "\n")
+      }
+      try toWrite.write(toFile: url.path, atomically: false, encoding: .utf8)
+    } catch let error {
+      Utils.showAlert(message: error.localizedDescription)
+    }
+
   }
 
   func loadFile() {
