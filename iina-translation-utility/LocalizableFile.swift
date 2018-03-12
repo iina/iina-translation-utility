@@ -48,6 +48,7 @@ class LocalizableFile: NSObject {
         }
         toWrite.append(String(currentLine) + "\n")
       }
+      toWrite.removeLast()
       try toWrite.write(toFile: url.path, atomically: false, encoding: .utf8)
     } catch let error {
       Utils.showAlert(message: error.localizedDescription)
