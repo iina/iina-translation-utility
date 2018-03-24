@@ -251,13 +251,13 @@ class MainWindowController: NSWindowController {
 
   @IBAction func searchFieldUpdated(_ sender: Any) {
     guard let selectedFile = selectedFile else { return }
-    let filterString = searchField.stringValue
+    let filterString = searchField.stringValue.lowercased()
     if filterString.count == 0 {
       displayedItems = selectedFile.content
     } else if filterString.count > 1 {
       displayedItems = selectedFile.content.filter {
-        ($0.base?.contains(filterString) ?? false) ||
-        ($0.localization?.contains(filterString) ?? false) ||
+        ($0.base?.lowercased().contains(filterString) ?? false) ||
+        ($0.localization?.lowercased().contains(filterString) ?? false) ||
         $0.key.contains(filterString)
       }
     }
