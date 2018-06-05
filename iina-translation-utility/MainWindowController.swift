@@ -68,15 +68,15 @@ class MainWindowController: NSWindowController {
   func loadProject() {
     guard let url = projectURL else { return }
 
-    lProjURLs = try! FileManager.default
+    guard let lProjURLs = try? FileManager.default
       .contentsOfDirectory(at: url, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles, .skipsSubdirectoryDescendants])
-      .filter { $0.hasDirectoryPath && $0.lastPathComponent.hasSuffix(".lproj") }
-      .sorted { $0.path.localizedStandardCompare($1.path) == .orderedAscending }
-
-    guard lProjURLs.count > 1 else {
-      Utils.showAlert(message: "Cannot load the project.")
-      exit(1)
+      .filter({ $0.hasDirectoryPath && $0.lastPathComponent.hasSuffix(".lproj") })
+      .sorted(by: { $0.path.localizedStandardCompare($1.path) == .orderedAscending }), lProjURLs.count > 1 else {
+        Utils.showAlert(message: "Cannot load the project.")
+        exit(1)
     }
+
+    self.lProjURLs = lProjURLs
 
     lProjURLs.forEach { url in
       let item = languagePopupButton.menu?.addItem(withTitle: url.lastPathComponent, action: nil, keyEquivalent: "")
