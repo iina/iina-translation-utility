@@ -16,7 +16,7 @@ fileprivate extension NSUserInterfaceItemIdentifier {
 class MainWindowController: NSWindowController {
 
   override var windowNibName: NSNib.Name {
-    return NSNib.Name("MainWindowController")
+    return "MainWindowController"
   }
 
   @IBOutlet weak var languagePopupButton: NSPopUpButton!
@@ -107,11 +107,11 @@ class MainWindowController: NSWindowController {
     guard let selectedFile = selectedFile else { return }
     selectedFile.checkForIssues(appendMissingValues: false)
     if selectedFile.missingKeyCount == 0 {
-      fileStatusImage.image = NSImage(named: .statusAvailable)
+      fileStatusImage.image = NSImage(named: NSImage.statusAvailableName)
       fileMessageTextField.stringValue = "No Issue."
       fileNextIssueButton.isHidden = true
     } else {
-      fileStatusImage.image = NSImage(named: .statusUnavailable)
+      fileStatusImage.image = NSImage(named: NSImage.statusUnavailableName)
       fileMessageTextField.stringValue = "Translation missing detected for \(selectedFile.missingKeyCount) keys."
       fileNextIssueButton.isHidden = false
     }
@@ -304,7 +304,7 @@ extension MainWindowController: NSOutlineViewDelegate, NSOutlineViewDataSource {
     let file = item as! LocalizableFile
     v.textField?.stringValue = file.url.lastPathComponent
     v.imageView?.image = NSWorkspace.shared.icon(forFile: file.url.path)
-    v.statusImageView.image = file.missingKeyCount == 0 ? NSImage(named: .statusAvailable) : NSImage(named: .statusUnavailable)
+    v.statusImageView.image = file.missingKeyCount == 0 ? NSImage(named: NSImage.statusAvailableName) : NSImage(named: NSImage.statusUnavailableName)
     v.statusCountLabel.stringValue = "\(file.missingKeyCount)"
     return v
   }

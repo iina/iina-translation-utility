@@ -75,6 +75,9 @@ extension XIBLoader: XMLParserDelegate {
       if let placeholder = attributeDict["placeholderString"] {
         addTitle(key: "\(id).placeholderString", value: placeholder, class: elementName)
       }
+      if let toolTip = attributeDict["toolTip"] {
+        addTitle(key: "\(id).ibShadowedToolTip", value: toolTip, class: elementName)
+      }
       parentId = id
       parentElm = elementName
     }
