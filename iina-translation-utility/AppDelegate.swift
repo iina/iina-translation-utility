@@ -40,6 +40,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     openDocument(self)
   }
 
+  func applicationShouldHandleReopen(_ sender: NSApplication, hasVisibleWindows flag: Bool) -> Bool {
+    if !flag {
+      openDocument(self)
+      return true
+    }
+    return false
+  }
+
   func applicationWillTerminate(_ aNotification: Notification) {
     // Insert code here to tear down your application
   }
