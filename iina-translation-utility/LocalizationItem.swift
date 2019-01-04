@@ -19,13 +19,6 @@ class LocalizationItem: NSObject {
     return localization ?? base ?? ""
   }
 
-  var escapedLocalization: String? {
-    return localization?
-      .replacingOccurrences(of: "\\", with: "\\\\")
-      .replacingOccurrences(of: "\"", with: "\\\"")
-      .replacingOccurrences(of: "\n", with: "\\n")
-  }
-
   @objc var translationForDisplay: String {
     return localization ?? "Translation Missing"
   }
@@ -53,6 +46,8 @@ class LocalizationItem: NSObject {
   init(key: String, base: String?, localization: String?) {
     self.key = key
     self.base = base
-    self.localization = localization
+    self.localization = localization?.replacingOccurrences(of: "\\", with: "\\\\")
+                                     .replacingOccurrences(of: "\"", with: "\\\"")
+                                     .replacingOccurrences(of: "\n", with: "\\n")
   }
 }
