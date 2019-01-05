@@ -89,13 +89,22 @@ class MainWindowController: NSWindowController {
     selectedBaseLangURL = (baseLanguagePopupButton.selectedItem?.representedObject as? URL)
   }
 
-  private func loadLanguage() {
-    guard let url = selectedLangURL else { return }
-    localizableFiles.removeAll()
-    localizableFiles = try! FileManager.default
+  private func getLocalizableFiles(url: URL) -> [URL] {
+    return try! FileManager.default
       .contentsOfDirectory(at: url, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles, .skipsSubdirectoryDescendants])
-      .filter { $0.lastPathComponent.hasSuffix(".strings") && $0.lastPathComponent != "InfoPlist.strings" }
+      .filter { $0.pathExtension != "rtf" }
       .sorted { $0.path.localizedStandardCompare($1.path) == .orderedAscending }
+  }
+
+  private func loadLanguage() {
+    guard let url = selectedLangURL, let baseURL = selectedBaseLangURL else { return }
+    let langLocalizableFiles = getLocalizableFiles(url: url).map { NSString(string: $0.lastPathComponent).deletingPathExtension }
+    let baseLocalizableFiles = getLocalizableFiles(url: baseURL).map { NSString(string: $0.lastPathComponent).deletingPathExtension }
+    let missingFiles = baseLocalizableFiles.filter { !langLocalizableFiles.contains($0) }
+    missingFiles.forEach {
+      FileManager.default.createFile(atPath: "\(url.path)//\($0).strings", contents: nil)
+    }
+    localizableFiles = getLocalizableFiles(url: url)
       .map { LocalizableFile(url: $0, basedOn: selectedBaseLangURL) }
     localizableFiles.forEach { $0.update() }
     selectedFile = nil
