@@ -70,7 +70,8 @@ class MainWindowController: NSWindowController {
 
     guard let lProjURLs = try? FileManager.default
       .contentsOfDirectory(at: url, includingPropertiesForKeys: nil, options: [.skipsHiddenFiles, .skipsSubdirectoryDescendants])
-      .filter { $0.hasDirectoryPath && $0.lastPathComponent.hasSuffix(".lproj") }, lProjURLs.count > 1 else {
+      .filter({ $0.hasDirectoryPath && $0.lastPathComponent.hasSuffix(".lproj") })
+      .sorted(by: { $0.path.localizedStandardCompare($1.path) == .orderedAscending }), lProjURLs.count > 1 else {
         Utils.showAlert(message: "Cannot load the project.")
         exit(1)
     }
